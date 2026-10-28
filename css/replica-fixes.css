@@ -3,3 +3,11 @@
 
 /* Store card: April 2025 code put 20 px above the button block; today's code wraps text and buttons differently */
 #allrecords .t-store__card .t-store__card__btns-wrapper { margin-top: 20px !important; }   /* today's CSS forces 0 or auto with !important */
+
+/* Home hero (Dmitry's request 2026-10-28, a change from the original, which scrolled the photo with the page):
+   the photo stays in place while the page scrolls over it, and js/replica.js blurs it as the visitor scrolls.
+   clip-path keeps the fixed photo inside the hero block (works in Safari, where background-attachment:fixed does not). */
+#rec867248668 .t-cover { clip-path: inset(0); }
+#rec867248668 .t-cover__carrier, #rec867248668 .t-cover__filter { position: fixed !important; top: 0; left: 0; width: 100%; }
+#rec867248668 .t-cover { background-image: none !important; }   /* the photo moves onto the fixed layer below */
+#rec867248668 .t-cover__carrier { background: url('../tilda/tild6562-3937-4632-a666-633638623834/Turbotext_AI_Image_7.png') center / cover no-repeat !important; will-change: filter; }

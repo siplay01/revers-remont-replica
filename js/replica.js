@@ -121,6 +121,27 @@
   };
   navigator.sendBeacon = function () { return true; };
 
+  // ---------------------------------------------------------------- start position and home hero
+  // Every page opens at the top unless the link names a section (#...): no restored or load-time jump. A visitor who
+  // starts scrolling while the page loads is left where they are.
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  var moved = false;
+  ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (t) { addEventListener(t, function () { moved = true; }, { passive: true, once: true }); });
+  function toTop() { if (!location.hash && !moved && window.scrollY) window.scrollTo(0, 0); }
+  addEventListener('DOMContentLoaded', toTop); addEventListener('load', function () { toTop(); setTimeout(toTop, 300); });
+  addEventListener('pageshow', function (e) { if (e.persisted) toTop(); });
+
+  // Home hero photo blurs as the page scrolls over it (css/replica-fixes.css keeps it in place); off for reduced motion.
+  addEventListener('DOMContentLoaded', function () {
+    var hero = document.querySelector('#rec867248668 .t-cover'), photo = hero && hero.querySelector('.t-cover__carrier');
+    if (!photo || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    var busy = false;
+    function blur() { busy = false; var k = Math.min(Math.max(window.scrollY / (hero.offsetHeight || 1), 0), 1); photo.style.filter = k ? 'blur(' + (k * 10).toFixed(1) + 'px)' : '';
+      photo.style.transform = k ? 'scale(' + (1 + k * 0.06).toFixed(3) + ')' : ''; }   // hides the blur's soft edge; the top screen stays as in the original
+    addEventListener('scroll', function () { if (!busy) { busy = true; requestAnimationFrame(blur); } }, { passive: true });
+    blur();
+  });
+
   // ---------------------------------------------------------------- order form (t706 cart)
   // Only a real click on the cart form's own submit button (Enter in a field becomes such a click), and only once
   // Tilda's own check of the fields passes. Tilda's handler (and its server send, which would report a fake
