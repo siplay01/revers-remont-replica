@@ -142,7 +142,6 @@
     var msg = f.querySelector('.replica-note');
     if (!msg) { msg = document.createElement('p'); msg.className = 'replica-note t-text t-text_xs'; msg.setAttribute('role', 'status'); f.appendChild(msg); }
     msg.textContent = 'Сайт не отправляет заявки сам. Открыто письмо в вашей почтовой программе: проверьте его и отправьте на ' + MAIL + '.';
-    msg.dataset.mailto = href;   // read by tests/e2e.js
-    window.location.href = href;
+    (window.REPLICA_OPEN_MAIL || function (h) { window.location.href = h; })(href);   // tests/e2e.js replaces this, so test runs never open the mail program
   }, true);
 })();
