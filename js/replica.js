@@ -2,7 +2,7 @@
  * 1. Tilda CDN URLs that Tilda's own scripts add at runtime are rewritten to the local /tilda/ mirror.
  * 2. Requests to Tilda's servers never leave the browser: the store API is answered from /data/store/*.json
  *    (the saved 177-product API responses), statistics, error reporting and discounts get empty answers.
- * 3. The order form (cart, block t706) cannot reach Tilda's form server any more. On submit it opens a
+ * 3. The order form (cart, block t706) cannot reach Tilda's form server any more. A click on its submit button opens a
  *    pre-filled e-mail in the visitor's mail program and says so; nothing is reported as sent.
  */
 (function () {
@@ -122,19 +122,27 @@
   navigator.sendBeacon = function () { return true; };
 
   // ---------------------------------------------------------------- order form (t706 cart)
-  document.addEventListener('submit', function (e) {
-    var f = e.target;
-    if (!f.closest || !f.closest('.t706, .t-form, form.js-form-proccess')) return;
+  // Only a real click on the cart form's own submit button (Enter in a field becomes such a click), and only once
+  // Tilda's own check of the fields passes. Tilda's handler (and its server send, which would report a fake
+  // success) never runs for that click.
+  document.addEventListener('click', function (e) {
+    var btn = e.target && e.target.closest && e.target.closest('[type="submit"]');
+    var f = btn && btn.closest('.t706 .js-form-proccess');
+    if (!f || !e.isTrusted || !window.tildaForm) return;
     e.preventDefault(); e.stopImmediatePropagation();
+    window.tildaForm.hideErrors(f);
+    if (window.tildaForm.showErrors(f, window.tildaForm.validate(f))) return;
+    var cart = window.tcart && window.tcart.products || [];
+    if (!cart.length) return;
     var val = function (n) { var el = f.querySelector('[name="' + n + '"]'); return el ? el.value.trim() : ''; };
     var lines = ['Здравствуйте! Хочу оформить заказ.', ''];
-    var cart = window.tcart && window.tcart.products || [];
     cart.forEach(function (p, i) { lines.push((i + 1) + '. ' + (p.name || '') + (p.sku ? ' (' + p.sku + ')' : '') + ' x ' + (p.quantity || 1)); });
-    lines.push('', 'Имя: ' + val('name'), 'E-mail: ' + val('email'), 'Телефон: ' + val('phone'));
+    lines.push('', 'Имя: ' + val('Name'), 'E-mail: ' + val('Email'), 'Телефон: ' + val('Phone'), 'Город: ' + val('Input_2'), 'Комментарий: ' + val('Input'));
     var href = 'mailto:' + MAIL + '?subject=' + encodeURIComponent('Заказ с сайта revers-remont.ru') + '&body=' + encodeURIComponent(lines.join('\n'));
     var msg = f.querySelector('.replica-note');
     if (!msg) { msg = document.createElement('p'); msg.className = 'replica-note t-text t-text_xs'; msg.setAttribute('role', 'status'); f.appendChild(msg); }
     msg.textContent = 'Сайт не отправляет заявки сам. Открыто письмо в вашей почтовой программе: проверьте его и отправьте на ' + MAIL + '.';
+    msg.dataset.mailto = href;   // read by tests/e2e.js
     window.location.href = href;
   }, true);
 })();
