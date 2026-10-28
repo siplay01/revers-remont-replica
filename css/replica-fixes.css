@@ -1,0 +1,5 @@
+/* Compensations for running today's Tilda libraries instead of the April 2025 ones (Wayback rate-limits a full
+   April set). Each rule restores a measured value of the original render (tests/blocks.js, tests/card compare). */
+
+/* Store card: April 2025 code put 20 px above the button block; today's code wraps text and buttons differently */
+#allrecords .t-store__card .t-store__card__btns-wrapper { margin-top: 20px !important; }   /* today's CSS forces 0 or auto with !important */

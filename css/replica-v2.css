@@ -1,0 +1,61 @@
+/* Additions for pages of the later site that have no archived HTML. Values measured on the owner's phone
+   screenshots (colors sampled by tests/sample_colors.js); everything else comes from the April 2025 Tilda CSS. */
+
+/* Links in text: dark blue with a green underline (SHOT:062d7867, 99f44811) */
+.replica-v2-text a, .t225__title a, .replica-footer a, .replica-footer__bottom a {
+  color: #0e258f; text-decoration: none; border-bottom: 1.5px solid #94d972;
+}
+.replica-v2-text ul, .replica-v2-text ol { margin: 0; padding-left: 1.4em; }
+.replica-v2-text { color: #000; }
+
+/* Footer: black bar, white text (SHOT:37d8beca, a7d2f447) */
+.replica-footer, .replica-footer__bottom { color: #fff; }
+.replica-footer .t-title, .replica-footer .t-descr, .replica-footer__bottom { color: #fff; }
+.replica-footer__order { font-size: 22px; line-height: 1.25; margin-bottom: 60px; }
+.replica-footer__company { font-size: 26px; margin: 20px 0 0; }
+.replica-footer__contacts { font-weight: 300; }
+.replica-footer__bottom { font-weight: 600; }
+.replica-footer a, .replica-footer__bottom a { color: #2f55d4; }
+
+/* Catalog cards of the later home page (SHOT:3f8b1f0f, 23d7744f): #333333 tile, centered white text */
+.replica-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 40px; padding: 0 20px; box-sizing: border-box; }
+.replica-card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; min-height: 310px;
+  padding: 40px 20px; background: #333333; color: #fff; text-align: center; text-decoration: none; }
+.replica-card__img { width: 66px; height: 48px; border: 1px dashed rgba(255, 255, 255, .5); }
+.replica-card__title, .replica-card__descr { color: #fff; }
+.replica-card__title { font-weight: 600; }
+.replica-card__descr { font-weight: 300; }
+
+/* Lost material: a visible marker instead of invented content (not part of the original look) */
+.replica-gap { margin: 0; padding: 12px 16px; border: 1px dashed #8a8a8a; background: #fafafa; color: #444;
+  font: 14px/1.45 Arial, sans-serif; }
+
+.replica-img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.replica-table { overflow-x: auto; margin: 12px 0; }
+.replica-table table { border-collapse: collapse; width: 100%; font-size: 15px; line-height: 1.4; }
+.replica-table td { border: 1px solid #c8c8c8; padding: 6px 8px; vertical-align: top; }
+.replica-anchor { position: relative; top: -10px; }
+.t446__positionstatic { position: relative; }
+
+/* Order form note written by js/replica.js (the site cannot send the form itself) */
+.replica-note { margin-top: 12px; color: #000; }
+
+/* Later-site header on pages without a hero: the T446 bar grows with its (wrapping) menu instead of a fixed height */
+.t446__positionstatic, .t446__positionstatic .t446__maincontainer { height: auto !important; min-height: 120px; }
+.t446__positionstatic .t446__maincontainer { padding: 20px 0; box-sizing: border-box; }
+
+/* Links in texts of the later site (project link style seen on SHOT:062d7867): beats Tilda's default #ff8562 */
+#allrecords .t-store__prod-popup__text a, #allrecords .replica-v2-text a, #allrecords .t225__title a {
+  color: #0e258f; text-decoration: none; border-bottom: 1.5px solid #94d972; box-shadow: none; }
+#allrecords .replica-footer a, #allrecords .replica-footer__bottom a { color: #2f55d4; border-bottom: 1.5px solid #94d972; text-decoration: none; }
+
+/* Product pages: Tilda's product template centred in its 1200 px grid; the template's close arrow and
+   "Все товары" link sit fixed at the top corners and would cover the header, so they are hidden here */
+.t-store__prod-snippet__container .t-store__prod-popup__container { max-width: 1200px; margin: 0 auto; }
+.t-store__prod-snippet__container > .t-popup__close, .t-store__prod-snippet__container > .t-store__prod-popup__close-txt-wr { display: none; }
+.t-store__prod-snippet__container { padding-top: 60px !important; }
+
+/* Manual page title: 24 px bold on a phone (measured on SHOT:99f44811). Tilda generated CSS per page, so title sizes
+   the April page did not use have no rule; the desktop size (36 px) is an estimate. */
+.replica-title-sm { font-size: 36px; line-height: 1.23; }
+@media screen and (max-width: 640px) { .replica-title-sm { font-size: 24px; } }
