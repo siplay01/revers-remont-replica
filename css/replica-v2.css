@@ -8,22 +8,23 @@
 .replica-v2-text ul, .replica-v2-text ol { margin: 0; padding-left: 1.4em; }
 .replica-v2-text { color: #000; }
 
-/* Footer: black bar, white text (SHOT:37d8beca, a7d2f447) */
+/* Footer: black bar, white text (SHOT:37d8beca, a7d2f447); font sizes measured on those screenshots at 390 px */
 .replica-footer, .replica-footer__bottom { color: #fff; }
 .replica-footer .t-title, .replica-footer .t-descr, .replica-footer__bottom { color: #fff; }
-.replica-footer__order { font-size: 22px; line-height: 1.25; margin-bottom: 60px; }
-.replica-footer__company { font-size: 26px; margin: 20px 0 0; }
-.replica-footer__contacts { font-weight: 300; }
-.replica-footer__bottom { font-weight: 600; }
+.replica-footer__order { font-size: 20px; line-height: 1.2; margin-bottom: 60px; }
+.replica-footer__company { font-size: 22px; margin: 20px 0 0; }
+.replica-footer__contacts { font-weight: 300; font-size: 23px; line-height: 1.38; }
+.replica-footer__company + .replica-footer__contacts { font-size: 22px; line-height: 1.44; }   /* ИНН/КПП fits one line, as on SHOT:37d8beca */
+.replica-footer__bottom { font-weight: 600; font-size: 16px; line-height: 1.5; }
 .replica-footer a, .replica-footer__bottom a { color: #2f55d4; }
 
 /* Catalog cards of the later home page (SHOT:3f8b1f0f, 23d7744f): #333333 tile, centered white text */
 .replica-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 40px; padding: 0 20px; box-sizing: border-box; }
-.replica-card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; min-height: 310px;
-  padding: 40px 20px; background: #333333; color: #fff; text-align: center; text-decoration: none; }
+.replica-card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; min-height: 327px;
+  padding: 40px 20px; box-sizing: border-box; background: #333333; color: #fff; text-align: center; text-decoration: none; }
 .replica-card__title, .replica-card__descr { color: #fff; }
 .replica-card__title { font-weight: 600; }
-.replica-card__descr { font-weight: 300; }
+.replica-card__descr { font-weight: 300; font-size: 22px; line-height: 1.55; }
 
 .replica-img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 .replica-table { overflow-x: auto; margin: 12px 0; }
